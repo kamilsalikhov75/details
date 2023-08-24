@@ -17,11 +17,4 @@ function deleteCity(city) {
     addedCityArr.delete(city);
     localStorage.setItem('AddedCityArr', JSON.stringify(Array.from(addedCityArr)));    
     render();
-    // console.log(city);
-    // let index = addedCityArr.findIndex((item) => (item === city));
-    // if (index !== -1){
-    //     addedCityArr.splice(index, 1);
-    //     localStorage.setItem('AddedCityArr', JSON.stringify(addedCityArr));
-    //     render();
-    // }
 }

@@ -15,7 +15,7 @@ export function addCity() {
                 return;
             }
         }
-        // addedCityArr.push(ELEMENTS.CITY_TITLE.textContent);  
+        
         addedCityArr.add(ELEMENTS.CITY_TITLE.textContent);  
         ELEMENTS.INPUT.value = '';
         localStorage.setItem('AddedCityArr', JSON.stringify(Array.from(addedCityArr)));
@@ -62,7 +62,7 @@ export function render() {
         addedCity.appendChild(deleteButton);
         addedCityInfo();
     }
-    // console.log(addedCityArr);
+    
     deleteClick();
 }
 
