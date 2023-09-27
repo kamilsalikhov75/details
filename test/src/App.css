@@ -48,6 +48,10 @@
   /* background-color: rgb(124, 124, 124); */
 }
 
+.wrapper.active{
+  background-color: grey;
+}
+
 
 
 .formSection {
