@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { getGender } from './GetGender'
@@ -10,14 +10,26 @@ function App(){
   const [name, setName] = useState('')
   const [gender, setGender] = useState('');
 
+  useEffect(()=>{
+    const savedName = localStorage.getItem("name");
+    const savedGender = localStorage.getItem("gender");
+
+    if (savedName) setName(savedName);
+    if (savedGender) setGender(savedGender);
+
+  }, [])
 
   const fetchGender = async() => {
     const result = await getGender(name);
-    console.log(result)
-    result == 'male' ? setGender('мужской') : setGender('женский')
-
+    result == 'male' ? setGender('мужской') : setGender('женский');
 
   }
+
+  useEffect(()=>{
+    localStorage.setItem("name", name);
+    localStorage.setItem("gender", gender);
+    
+  }, [name, gender])
 
   return(
     <>
@@ -26,7 +38,7 @@ function App(){
       <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='введите имя' />
       <button onClick={fetchGender}>Узнать пол</button>
     </form>
-    {gender && <p>Пол: {gender }</p>}
+    {gender && <p> {name} - Пол: {gender }</p>}
     
     </>
     

@@ -4,7 +4,6 @@ export const getGender = async (name) => {
     if (data.gender) {
       return data.gender;
     }
-    
     return null;
 };
   
