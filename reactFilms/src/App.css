@@ -1,0 +1,112 @@
+#root {
+  /* max-width: 1280px; */
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+.wrapper{
+  min-width: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.wrapper.active{
+  background-color: grey;
+}
+
+
+
+.formSection {
+  position: absolute;
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formWindow {
+  background-color: rgb(255, 255, 255);
+  display: inherit;
+  flex-direction: inherit;
+  align-items: inherit;
+  width: 600px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+}
+
+.formClass {
+  display: flex;
+  flex-direction: column;
+}
+
+.button__close{
+  position: absolute;
+  right: 0;
+  margin-right: 15px;
+}
+
+.inputStyle{
+  height: 30px;
+  width: 300px;
+  border-color: rgb(81, 71, 172);
+  border-width: 3px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 10px;
+  text-decoration: none;
+  outline: none;
+}
+
+.buttonStyle{
+  margin-top: 20px;
+  height: 45px;
+  background-color: blueviolet;
+  color: white;
+}
