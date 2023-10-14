@@ -6,7 +6,9 @@ import { Button } from './Button'
 import { Login } from './Login'
 import { Registration } from './Registration'
 import { CompleteAuthorization } from './CompleteAuthorization'
-
+import { Header } from './Header'
+import { Filter } from './Filter'
+import { getGenres } from './Genres'
 
 function App() {
 
@@ -14,21 +16,16 @@ function App() {
 
   return (
     <div id='wrapper' className='wrapper'>
+      <Header headerArr={["Фильмы", <Button buttonText={"Войти"} onClick={()=> setActiveMod('login')} />]} />
       <div className={`authorization ${activeMod ? 'active' : ''}`}>
-        <Button
-          buttonText={"Login"}
-          onClick={() => setActiveMod('login')}
-        />
-        {activeMod == 'login' && <Login onClick={() => setActiveMod('')} />}
+  
+        {activeMod == 'login' && <Login onClick={() => setActiveMod('')} setRegistration={()=> setActiveMod('registration')}/>}
 
-        <Button
-          buttonText={"Registration"}
-          onClick={() => setActiveMod('registration')}
-        />
-        {activeMod == 'registration' && <Registration onClick={() => setActiveMod('')} />}
+        {activeMod == 'registration' && <Registration onClick={() => setActiveMod('')} setLogin={()=> setActiveMod('login')} />}
       </div>
-
-
+      <div className='main'>
+        <Filter/>
+      </div>
     </div>
   )
 }

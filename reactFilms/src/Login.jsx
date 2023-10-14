@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CompleteAuthorization } from "./CompleteAuthorization";
+import { Button } from "./Button";
 
-export function Login({onClick}) {
+export function Login({onClick, setRegistration}) {
 
     const [credentials, setCredential] = useState({
         login: '',
@@ -22,8 +23,6 @@ export function Login({onClick}) {
         })
     }
 
-
-
     return (
         <div className='formSection'>
             <div className='formWindow'>
@@ -36,7 +35,8 @@ export function Login({onClick}) {
                     <input value={credentials.password} onChange={handlePasswordChange} name='password' className='inputStyle' placeholder='Password'></input>
                     <button className='buttonStyle' type='submit'>LOGIN</button>
                 </form>
-
+                <p>нет аккаунта?</p>
+                <button className='buttonStyle' onClick={() => setRegistration()}>создать аккаунт</button>
             </div>
         </div>
     )

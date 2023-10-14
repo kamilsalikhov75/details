@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { CompleteAuthorization } from "./CompleteAuthorization"
 
-export function Registration({onClick}) {
+export function Registration({onClick, setLogin}) {
     const [credentials, setCredential] = useState({
         login: '',
         password: '',
@@ -42,6 +42,8 @@ export function Registration({onClick}) {
                     <input name='repeatPassword' className='inputStyle' onChange={handleRepeatPasswordChange} type='text' placeholder='Repeat password'></input>
                     <button className='buttonStyle' type='submit'>REGISTRATION</button>
                 </form>
+                <p>уже есть аккаунт?</p>
+                <button className='buttonStyle' onClick={() => setLogin()}>войти</button>
             </div>
         </div>
     )
