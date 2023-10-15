@@ -5,8 +5,8 @@ export function Pagination({n}){
        
 
     const pagItems = pagArr.map(pagItem =>(
-        <li key={pagItem.id}>
-            <a key={pagItem.id} href="#" className="pag__item">{pagItem}</a>
+        <li key={pagItem}>
+            <a href="#" className="pag__item">{pagItem}</a>
         </li>)
     )
     return <ul key={"pagUl"} className="filter__pagination-ul">

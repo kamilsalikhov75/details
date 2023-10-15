@@ -1,4 +1,4 @@
-export const CompleteAuthorization = (event, formType) => {
+export const completeAuthorization = (event, formType) => {
     event.preventDefault();
     if (formType == 'Login') {
         console.log("Пользователь успешно авторизован")

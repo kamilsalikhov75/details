@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { CompleteAuthorization } from "./CompleteAuthorization"
+import { completeAuthorization } from "../utils/completeAuthorisation";
+import { Button } from "./Button";
 
 export function Registration({onClick, setLogin}) {
     const [credentials, setCredential] = useState({
@@ -30,12 +31,12 @@ export function Registration({onClick, setLogin}) {
     }
 
     return (
-        <div className='formSection'>
-            <div className='formWindow'>
+        <div className='form__section' onClick={e => e.stopPropagation()}> 
+            <div className='form__window'>
                 <button className='button__close' onClick={() => onClick()}>x</button>
-                <h2>Registration</h2>
-                <form id='form' className='formClass' action='' onSubmit={(event) => {
-                    CompleteAuthorization(event, "Registration")
+                <h2 className="form__title">Registration</h2>
+                <form id='form' className='form__class' action='' onSubmit={(event) => {
+                    completeAuthorization(event, "Registration")
                 }}>
                     <input name='login' className='inputStyle' onChange={handleLoginChange} type='text' placeholder='Username'></input>
                     <input name='password' className='inputStyle' onChange={handlePasswordChange} type='text' placeholder='Password'></input>
@@ -43,7 +44,7 @@ export function Registration({onClick, setLogin}) {
                     <button className='buttonStyle' type='submit'>REGISTRATION</button>
                 </form>
                 <p>уже есть аккаунт?</p>
-                <button className='buttonStyle' onClick={() => setLogin()}>войти</button>
+                <Button onClick={()=> setLogin()}>войти</Button>
             </div>
         </div>
     )

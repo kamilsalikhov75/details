@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CompleteAuthorization } from "./CompleteAuthorization";
+import { completeAuthorization } from "../utils/completeAuthorisation";
 import { Button } from "./Button";
 
 export function Login({onClick, setRegistration}) {
@@ -24,19 +24,19 @@ export function Login({onClick, setRegistration}) {
     }
 
     return (
-        <div className='formSection'>
-            <div className='formWindow'>
+        <div className='form__section'>
+            <div className='form__window'>
                 <button className='button__close' onClick={() => onClick()}>x</button>
-                <h2>Login</h2>
-                <form className='formClass' action='' onSubmit={(event) => {
-                    CompleteAuthorization(event, "Login")
+                <h2 className="form__title">Login</h2>
+                <form className='form__class' action='' onSubmit={(event) => {
+                    completeAuthorization(event, "Login")
                 }}>
                     <input value={credentials.login} onChange={handleLoginChange} name='login' className='inputStyle' placeholder='Username'></input>
                     <input value={credentials.password} onChange={handlePasswordChange} name='password' className='inputStyle' placeholder='Password'></input>
                     <button className='buttonStyle' type='submit'>LOGIN</button>
                 </form>
                 <p>нет аккаунта?</p>
-                <button className='buttonStyle' onClick={() => setRegistration()}>создать аккаунт</button>
+                <Button onClick={()=> setRegistration()}>создать аккаунт</Button>
             </div>
         </div>
     )

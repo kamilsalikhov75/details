@@ -1,5 +1,5 @@
 
-export function Checkbox({checkboxArr}){
+export function CheckboxUL({checkboxArr}){
     const checkboxItems = checkboxArr.map(checkboxItem => 
         <li key={checkboxItem.id}>
             <label>

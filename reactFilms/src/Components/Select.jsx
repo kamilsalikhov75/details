@@ -1,4 +1,5 @@
 export function Select({selectTitle, selectArr}){
+
     const selectItems = selectArr.map(selectItem =>
         <option key={selectItem.id} value={selectItem.title}>{selectItem.title}</option>);
     return(

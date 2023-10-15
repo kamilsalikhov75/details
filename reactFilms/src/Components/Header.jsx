@@ -1,5 +1,3 @@
-
-
 export function Header({headerArr}){
     const headerItems = headerArr.map((headerItem, index) =>{
         return <li className="header__menu-item" key={index}>{headerItem}</li>
@@ -14,6 +12,3 @@ export function Header({headerArr}){
         </header>
     )
 }
-
-
-<Header headerArr={["Фильмы", "Тест"]} />

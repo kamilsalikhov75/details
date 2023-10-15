@@ -39,39 +39,59 @@ nav ul{
 }
 .main {
   min-width: 100%;
-  /* min-height: 100%; */
   display: flex;
   flex: 1 1 auto;
 }
 
-.authorization {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
-
-.authorization.active {
+.modal{
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: grey;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
-.formSection {
-  position: absolute;
-  min-height: 100%;
+.modal.active{
+  opacity: 1;
+  pointer-events: all;
+  z-index: 1;
+}
+
+.modal__content{
+  /* padding: 20px;
+  border-radius: 12px;
+  background-color: white; */
+  transform: scale(0.5);
+  transition: 0.4s all;
+  /* width: 50vw; */
+}
+
+.modal__content.active{
+  transform: scale(1);
+}
+
+
+.form__section {
+  /* position: absolute; */
+  /* min-height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.formWindow {
+.form__title{
+  margin: 0;
+}
+
+.form__window {
   background-color: rgb(255, 255, 255);
   display: inherit;
   flex-direction: inherit;
@@ -82,15 +102,14 @@ nav ul{
   border-radius: 12px;
 }
 
-.formClass {
+.form__class {
   display: flex;
   flex-direction: column;
 }
 
 .button__close {
-  position: absolute;
-  right: 0;
-  margin-right: 15px;
+  margin-left: auto;  
+  margin-right: 20px;
 }
 
 .inputStyle {
@@ -107,8 +126,6 @@ nav ul{
 }
 
 .buttonStyle {
-  /* margin-top: 20px; */
-  /* height: 45px; */
   background-color: blueviolet;
   color: white;
   text-align: center;
@@ -121,7 +138,6 @@ nav ul{
   float: left;
   margin-left: 15px;
   width: 400px;
-  /* height: 600px; */
   border: 1px solid black;
   display: flex;
   flex-direction: column;

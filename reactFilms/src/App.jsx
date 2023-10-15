@@ -1,14 +1,11 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from './Button'
-import { Login } from './Login'
-import { Registration } from './Registration'
-import { CompleteAuthorization } from './CompleteAuthorization'
-import { Header } from './Header'
-import { Filter } from './Filter'
-import { getGenres } from './Genres'
+import { Button } from './Components/Button'
+import { Login } from './Components/Login'
+import { Registration } from './Components/Registration'
+import { Header } from './Components/Header'
+import { Filter } from './Components/Filter'
+import { Modal } from './Components/Modal'
 
 function App() {
 
@@ -16,15 +13,19 @@ function App() {
 
   return (
     <div id='wrapper' className='wrapper'>
-      <Header headerArr={["Фильмы", <Button buttonText={"Войти"} onClick={()=> setActiveMod('login')} />]} />
-      <div className={`authorization ${activeMod ? 'active' : ''}`}>
-  
-        {activeMod == 'login' && <Login onClick={() => setActiveMod('')} setRegistration={()=> setActiveMod('registration')}/>}
+      <Header headerArr={["Фильмы", <Button onClick={() => setActiveMod('modalLogin')}>войти</Button>]} />
 
-        {activeMod == 'registration' && <Registration onClick={() => setActiveMod('')} setLogin={()=> setActiveMod('login')} />}
-      </div>
+      {activeMod == 'modalLogin' && <Modal active={activeMod} setActive={setActiveMod}>
+          <Login onClick={() => setActiveMod('')} setRegistration={()=> setActiveMod('modalRegistration')}/>
+        </Modal>}
+      
+      {activeMod == 'modalRegistration' && <Modal active={activeMod} setActive={setActiveMod} >
+        <Registration onClick={() => setActiveMod('')} setLogin={() => setActiveMod('modalLogin')} />
+      </Modal>
+      }
+
       <div className='main'>
-        <Filter/>
+        <Filter />
       </div>
     </div>
   )

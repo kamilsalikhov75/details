@@ -1,14 +1,3 @@
-// export const genresArr = [{
-//     id: 0,
-//     title: "Комедия"
-// }, {
-//     id: 1,
-//     title: "Боевик"
-// }, {
-//     id: 2, 
-//     title: "Драма"
-// }]
-
 export const selectArr = [{
     id: 0, 
     title: "Популярности"
@@ -20,14 +9,14 @@ export const selectArr = [{
     title: "Дате выхода"
 }]
 
-export const yearArr = [{}];
+// export const yearArr = [{}];
 
 
-function arrOfYears(from, to){
-    for (let i = from -1 ; i <= to;) yearArr.push({id: i++, title: i})
-}
+// export function arrOfYears(from, to){
+//     for (let i = from -1 ; i < to;) yearArr.push({id: i, title: i})
+// }
 
-arrOfYears(1911, 2024)
+// arrOfYears(1911, 2024)
 
 
 export const genresArr = [
