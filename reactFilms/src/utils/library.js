@@ -9,14 +9,11 @@ export const selectArr = [{
     title: "Дате выхода"
 }]
 
-// export const yearArr = [{}];
-
-
-// export function arrOfYears(from, to){
-//     for (let i = from -1 ; i < to;) yearArr.push({id: i, title: i})
-// }
-
-// arrOfYears(1911, 2024)
+export function arrOfNum(from, to, arr) {
+    for (let i = from; i <= to; i++) {
+        arr.push({ id: i, title: i })
+    }
+}
 
 
 export const genresArr = [
