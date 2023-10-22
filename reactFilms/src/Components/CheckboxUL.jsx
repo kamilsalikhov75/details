@@ -1,13 +1,15 @@
-export function CheckboxUL({ checkboxArr, isChecked, setIsChecked }) {
+export function CheckboxUL({ checkboxArr, isChecked, dispatch }) {
 
     function handleCheckboxChange(event) {
         const { name, checked } = event.target;
         if (checked) {
-            setIsChecked((prevChecked) => [...prevChecked, name]);
+            dispatch({
+                type: 'add_checkbox', name
+            });
         } else {
-            setIsChecked((prevChecked) =>
-                prevChecked.filter((item) => item !== name)
-            );
+            dispatch({
+                type: 'remove_checkbox', name
+            })
         }
     }
 
@@ -17,6 +19,8 @@ export function CheckboxUL({ checkboxArr, isChecked, setIsChecked }) {
                 <input id={id} type="checkbox" name={name} onChange={handleCheckboxChange} checked={isChecked.includes(name)} /> {name}
             </label>
         </li>);
-    return <ul className="filter__genres-ul">{checkboxItems}</ul>
+    return (
+        <ul className="filter__genres-ul">{checkboxItems}</ul>
+    )
 
 }

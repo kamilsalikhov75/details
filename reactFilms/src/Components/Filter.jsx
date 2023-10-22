@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import { checkboxReducer, initialState } from "../utils/checkboxReducer";
 
 import { Select } from "./Select";
 import { Pagination } from "./Pagination";
@@ -14,10 +15,7 @@ export function Filter() {
     const yearArr = [];
     arrOfNum(1911, 2024, yearArr);
 
-
-    const [isChecked, setIsChecked] = useState([]);
-    const [isCheckedArr, setIsCheckedArr] = useState(true)
-
+    const [isChecked, dispatch] = useReducer(checkboxReducer, initialState);
 
     return (
         <div className="filter">
@@ -32,10 +30,10 @@ export function Filter() {
 
                 <div className="filter__genres-panel">
                     <h3 className="filter__genres-title">Жанры</h3>
-                    <Button onClick={() => handleResetCheckbox(setIsChecked, isCheckedArr, setIsCheckedArr, genresArr)}>сбросить</Button>
+                    <Button onClick={()=> handleResetCheckbox(dispatch)}>сбросить</Button>
                 </div>
                 
-                <CheckboxUL checkboxArr={genresArr} isChecked={isChecked} setIsChecked={setIsChecked} />
+                <CheckboxUL checkboxArr={genresArr} isChecked={isChecked} dispatch={dispatch}  />
                 
             </div>
 
