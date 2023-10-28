@@ -1,6 +1,6 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useContext } from "react";
 import { checkboxReducer, initialState } from "../utils/checkboxReducer";
-
+import { BearerContext } from "../utils/userContext";
 import { Select } from "./Select";
 import { Pagination } from "./Pagination";
 import { CheckboxUL } from "./CheckboxUL";
@@ -17,6 +17,7 @@ export function Filter() {
 
     const [isChecked, dispatch] = useReducer(checkboxReducer, initialState);
 
+    const bearer = useContext(BearerContext);
     return (
         <div className="filter">
             <h3>Фильтры</h3>
@@ -31,6 +32,7 @@ export function Filter() {
                 <div className="filter__genres-panel">
                     <h3 className="filter__genres-title">Жанры</h3>
                     <Button onClick={()=> handleResetCheckbox(dispatch)}>сбросить</Button>
+                    <Button onClick={() => console.log(bearer)}></Button>
                 </div>
                 
                 <CheckboxUL checkboxArr={genresArr} isChecked={isChecked} dispatch={dispatch}  />
