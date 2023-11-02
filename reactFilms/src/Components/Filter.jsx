@@ -1,12 +1,10 @@
 import { useState, useReducer, useContext } from "react";
-import { checkboxReducer, initialState } from "../utils/checkboxReducer";
-import { BearerContext } from "../utils/userContext";
+import { useDispatch, useIsChecked } from "../utils/userContext";
 import { Select } from "./Select";
 import { Pagination } from "./Pagination";
 import { CheckboxUL } from "./CheckboxUL";
 import { selectArr, genresArr } from "../utils/library";
-import { Button } from "./Button";
-import { handleResetCheckbox } from "../utils/resetCheckbox";
+import { Button } from "./Button";  
 import { arrOfNum } from "../utils/library";
 
 
@@ -15,9 +13,8 @@ export function Filter() {
     const yearArr = [];
     arrOfNum(1911, 2024, yearArr);
 
-    const [isChecked, dispatch] = useReducer(checkboxReducer, initialState);
-
-    const bearer = useContext(BearerContext);
+    const dispatch = useDispatch()
+    const isChecked = useIsChecked()
     return (
         <div className="filter">
             <h3>Фильтры</h3>
@@ -31,8 +28,9 @@ export function Filter() {
 
                 <div className="filter__genres-panel">
                     <h3 className="filter__genres-title">Жанры</h3>
-                    <Button onClick={()=> handleResetCheckbox(dispatch)}>сбросить</Button>
-                    <Button onClick={() => console.log(bearer)}></Button>
+                    <Button onClick={()=> dispatch({
+                        type: 'reset_checkboxes'
+                    })}>сбросить</Button>
                 </div>
                 
                 <CheckboxUL checkboxArr={genresArr} isChecked={isChecked} dispatch={dispatch}  />

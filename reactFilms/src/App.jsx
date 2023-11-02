@@ -6,7 +6,7 @@ import { Registration } from './Components/Registration'
 import { Header } from './Components/Header'
 import { Filter } from './Components/Filter'
 import { Modal } from './Components/Modal'
-import { BearerContext } from './utils/userContext'
+import { BearerContext, CheckboxProvider } from './utils/userContext'
 import { bearerToken } from './utils/library'
 
 function App() {
@@ -14,28 +14,31 @@ function App() {
   const [activeMod, setActiveMod] = useState(null);
 
 
-  
+
   const bearer = useContext(BearerContext)
 
   return (
-    <BearerContext.Provider value={bearerToken}>
-      <div id='wrapper' className='wrapper'>
-        <Header headerArr={["Фильмы", <Button onClick={() => setActiveMod('modalLogin')}>войти</Button>]} />
+    <CheckboxProvider>
+      <BearerContext.Provider value={bearerToken}>
+        <div id='wrapper' className='wrapper'>
+          <Header headerArr={["Фильмы", <Button onClick={() => setActiveMod('modalLogin')}>войти</Button>]} />
 
-        {activeMod == 'modalLogin' && <Modal active={activeMod} setActive={setActiveMod}>
-            <Login onClick={() => setActiveMod('')} setRegistration={()=> setActiveMod('modalRegistration')}/>
-          </Modal>}
-        
-        {activeMod == 'modalRegistration' && <Modal active={activeMod} setActive={setActiveMod} >
-          <Registration onClick={() => setActiveMod('')} setLogin={() => setActiveMod('modalLogin')} />
-        </Modal>
-        }
+          {activeMod == 'modalLogin' && <Modal active={activeMod} setActive={setActiveMod}>
+            <Login onClick={() => setActiveMod('')} setRegistration={() => setActiveMod('modalRegistration')} />
+          </Modal>
+          }
 
-        <div className='main'>
-          <Filter />
+          {activeMod == 'modalRegistration' && <Modal active={activeMod} setActive={setActiveMod} >
+            <Registration onClick={() => setActiveMod('')} setLogin={() => setActiveMod('modalLogin')} />
+          </Modal>
+          }
+
+          <div className='main'>
+            <Filter />
+          </div>
         </div>
-      </div>
-    </BearerContext.Provider>
+      </BearerContext.Provider>
+    </CheckboxProvider>
   )
 }
 
