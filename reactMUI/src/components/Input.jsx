@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTasksDispatch } from "./TaskContext";
 
 
-export function InputUsage({id}) {
+export function InputUsage() {
   
   const [text, setText] = useState('');
   const dispatch = useTasksDispatch();
@@ -16,9 +16,10 @@ export function InputUsage({id}) {
       endAdornment: (
         <IconButton disabled={!isTyping || text == ''} color="primary" onClick={() => {
           setText('');
+          
           dispatch({
             type: 'added',
-            id: id++,
+            id: Date.now(),
             text: text
           })
         }}>

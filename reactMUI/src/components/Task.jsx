@@ -11,6 +11,7 @@ export function TaskList() {
     const tasks = useTasks();
     const inProcessTasks = tasks.filter(task => task.inProcess);
     const completedTasks = tasks.filter(task => !task.inProcess);
+    console.log(completedTasks)
     
     return (
         <>
@@ -70,23 +71,22 @@ export function TaskItem({ task }) {
         taskContent = (
             <>
                 <Checkbox checked={!task.inProcess} onChange={e => {
-                    console.log(initialTasks);
                     if(task.inProcess){
                         dispatch({
                         type: 'done',
                         id: task.id
                     })
                     } else{
-                        dispatch({
-                            type: 'deleted',
-                            id: task.id
-                        })
+                        
                         dispatch({
                             type: 'added',
                             id: task.id++,
                             text: task.text}
                         )
-                        
+                        dispatch({
+                            type: 'deleted',
+                            id: task.id
+                        })
                     }
                     
                 }}></Checkbox>

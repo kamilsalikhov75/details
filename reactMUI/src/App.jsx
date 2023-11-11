@@ -9,7 +9,7 @@ import './App.css'
 
 
 function App() {
-  let id = 0;
+  
   return (
     <TasksProvider>
       <Container fixed sx={{
@@ -27,7 +27,7 @@ function App() {
             }}>TODO</Typography>
           </div>
           <div className='add__bar'>
-            <InputUsage id={id}/>
+            <InputUsage/>
           </div>
           <TaskList/>
         </Container>
