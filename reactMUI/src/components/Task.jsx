@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTasks, useTasksDispatch } from "./TaskContext";
 import { initialTasks } from "./TaskContext";
 
-
+//review Вынести компоненты в отдельные файлы
 export function TaskList() {
     const tasks = useTasks();
     const inProcessTasks = tasks.filter(task => task.inProcess);
@@ -51,6 +51,7 @@ export function TaskItem({ task }) {
     let taskContent;
     if (isEditing) {
         taskContent = (
+            //review Здесь бы тоже вынести эти штуки в отдельные компоненты и использовать условный рендер jsx. Смотри ниже
             <TextField sx={{ width: '100%' }} variant="standard" label='имя задачи' value={task.text} onChange={e => {
                 dispatch({
                     type: 'edited',
@@ -90,7 +91,7 @@ export function TaskItem({ task }) {
                     }
                     
                 }}></Checkbox>
-                <Typography sx={{ width: '100%' }} variant="body1">{task.text}</Typography>;
+                <Typography sx={{ width: '100%' }} variant="body1">{task.text}</Typography>
                 <IconButton aria-label="edit" onClick={() => setIsEditing(true)}>
                     <EditIcon color="info" />
                 </IconButton>
@@ -102,6 +103,8 @@ export function TaskItem({ task }) {
         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
 
             {taskContent}
+            {/* review вместо taskContent и всей логики связанной с ним можно заюзать такое {isEditing?<EditableTask />:<Task/>} */}
+            {/* еще функции для обработчиков событий лучше объявить перед ретурном и здесь уже их использовать onClick={deleteTask} */}
             <IconButton aria-label="delete" onClick={() => {
                 dispatch({
                     type: 'deleted',

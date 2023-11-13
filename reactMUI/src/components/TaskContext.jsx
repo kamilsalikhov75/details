@@ -25,6 +25,9 @@ export function useTasksDispatch() {
     return useContext(TaskDispatchContext);
 }
 
+//  review Вместо того, чтобы повсюду писать 'added' 'edited', сделай объект с этими значениями и используй везде его.
+//   Это позволит избежать ошибок, когда ошибся при написании и сидишь ищешь, что не так. Да и с объектами будут поздсказки от среды разработки
+
 function taskReducer(tasks, action) {
     switch (action.type) {
         case 'added': {
@@ -37,6 +40,7 @@ function taskReducer(tasks, action) {
         };
         case 'edited': {
             return tasks.map(t => {
+                // review Не понятно что за t, лучше не использовать сокращения, используй полное название для переменной
                 if (t.id == action.task.id) {
                     return action.task;
                 } else {
