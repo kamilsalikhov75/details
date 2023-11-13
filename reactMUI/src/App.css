@@ -1,0 +1,29 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+
+.title {
+  width: 114px;
+  height: 66px;
+  flex-shrink: 0;
+}
+
+
+.add__bar {
+  display: flex;
+  width: auto;
+  padding: 12px;
+  align-items: center;
+  gap: 24px;  
+}
+
+.textField.add__bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+}
