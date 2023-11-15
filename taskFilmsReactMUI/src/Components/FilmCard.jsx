@@ -3,7 +3,7 @@ import StarIcon from '@mui/icons-material/Star';
 
 export function FilmCard() {
     return (
-        <Container>
+        <div style={{paddingRight: '20px', paddingBottom: '20px'}}>
             <Card sx={{ width: '296px', height: '324px' }}>
                 <Paper variant="elevation" elevation={1} square={true}>
 
@@ -24,6 +24,6 @@ export function FilmCard() {
 
                 </Paper>
             </Card>
-        </Container>
+        </div>
     )
 }
