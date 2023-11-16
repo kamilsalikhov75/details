@@ -1,12 +1,14 @@
 import { FilmGrid } from "./FilmGrid"
+import { FilmWindow } from "./FilmWindows"
 import { Filter } from "./Filter"
 
 export function Main() {
     return (
-        <div style={{ display: 'flex', width: '100vw', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', width: '100vw', justifyContent: 'space-between' }}>
 
-            <Filter />
-            <FilmGrid />
+            {/* <Filter /> */}
+            {/* <FilmGrid /> */}
+            <FilmWindow/>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import { Main } from './Components/Main'
 
 function App() {
   return (
-    <div>
+    <div style={{height: '100vh'}}>
       <Header />
       <Main />
     </div>

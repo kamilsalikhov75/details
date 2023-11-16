@@ -5,7 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export function Header() {
     return (
         <div style={{height: '64px'}}>
-            <AppBar variant='elevation' elevation={4} square={true}>
+            <AppBar sx={{height: '64px'}} variant='elevation' elevation={4} square={true}>
                 <Toolbar variant='regular' sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant='body1'>
                         Фильмы
