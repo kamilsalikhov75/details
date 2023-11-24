@@ -1,5 +1,5 @@
 export const selectArr = [{
-    id: 0, 
+    id: 0,
     title: "Популярности"
 }, {
     id: 1,
@@ -15,7 +15,15 @@ export function arrOfNum(from, to, arr) {
     }
 }
 
+
+export const fetchURLs = {
+    'Популярности': 'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1',
+    'Оценке': 'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_MOVIES&page=1'
+}
+
 export const bearerToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNzU5ZTBiOTAzNWQyMWUyYTkxZWM3MTZhM2ZiY2JiMCIsInN1YiI6IjY1MjkxNTQ3NjI5YjJjMDExYzkwM2U0YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uEnWmaoN9WiecvlJsoL6kIa9rFt5EpL8CCsS4VwoD4o'
+
+export const kinopoistUnoffToken = 'e43bd03c-839c-4000-9f8b-274957f6431d';
 
 export const genresArr = [
     {
