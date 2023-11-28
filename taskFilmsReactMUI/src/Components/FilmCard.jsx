@@ -21,7 +21,6 @@ export function FilmCard({name, poster, year}) {
                         </IconButton>
                     </CardContent>
 
-
                 </Paper>
             </Card>
         </div>

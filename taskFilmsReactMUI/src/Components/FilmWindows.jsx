@@ -3,17 +3,15 @@ import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
-export function FilmWindow(){
+export function FilmWindow({name, poster, year}){
     return(
         <div style={{display: 'flex', padding:'20px', width: '100vw'}}>
-            
             <div>
-                <Box component={'img'} src="https://static.hdrezka.ac/i/2014/1/22/h4442e483f19aey57g75d.jpg"/>
+                <Box component={'img'} src={poster}/>
             </div>
-
             <div className="details" style={{paddingLeft: '20px'}}>
                 <div className="title" style={{display: 'flex', paddingBottom: '10px'}}>
-                    <Typography variant="h3">Матрица (1999)</Typography>
+                    <Typography variant="h3">{name}</Typography>
                     <IconButton>
                         <StarIcon/>
                     </IconButton>
@@ -41,7 +39,7 @@ export function FilmWindow(){
                         </Box>
                         <Box sx={{display: 'flex', paddingBottom: '10px', justifyContent: 'space-between'}}>
                             <Typography variant="body1">Год </Typography>
-                            <Typography variant="body1">1999 </Typography>
+                            <Typography variant="body1">{year} </Typography>
                         </Box>
                         <Box sx={{display: 'flex', paddingBottom: '10px', justifyContent: 'space-between'}}>
                             <Typography variant="body1">Режиссер </Typography>
