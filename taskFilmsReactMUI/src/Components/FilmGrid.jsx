@@ -9,6 +9,7 @@ export function FilmGrid() {
     if (!data) {
         return console.log('loading');
     }
+    console.log(data)
     // data.items.forEach((item) => console.log(item))
     return (
         <div style={{ marginLeft: '420px', paddingTop: '20px' }}>

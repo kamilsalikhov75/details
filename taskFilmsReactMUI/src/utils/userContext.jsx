@@ -33,3 +33,24 @@ export function FetchProvider({ children, fetchURL }) {
 export function useFetchData() {
   return useContext(FetchContext);
 }
+
+// export function Fetching({fetchURL}){
+//   const [data, setData] = useState(null);
+//   useEffect(() => {
+//     const selectedURL = fetchURL();
+
+//     if (selectedURL) {
+//       fetch(selectedURL, {
+//         method: 'GET',
+//         headers: {
+//           'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//         .then(result => result.json())
+//         .then(json => setData(json))
+//         .catch(err => console.log(err));
+//     }
+
+//   }, [fetchURL]);
+// }

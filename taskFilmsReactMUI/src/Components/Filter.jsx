@@ -6,7 +6,6 @@ import { RangeSlider } from "./Slider";
 import { AutocompleteSelect } from "./AutocompleteSelect";
 
 export function Filter({selected, setSelected, page, setPage}) {
-
     return (
             <div style={{ marginLeft: '20px', width: '300px', position: 'fixed', zIndex: 1, top: '50%', marginTop: '-200px', height: '100vh' }}>
                 <Paper sx={{ width: '300px' }} elevation={1}>
@@ -18,16 +17,13 @@ export function Filter({selected, setSelected, page, setPage}) {
                             <CloseIcon />
                         </IconButton>
                     </Box>
-
                     <SelectUsage selectTitle={"Сортировать по:"} selectArr={selectArr} selected={selected}  setSelected={setSelected}/>
-
                     <Box>
                         <Typography variant="body1" textAlign={'left'} marginLeft={'16px'}>
                             Год релиза:
                         </Typography>
                         <RangeSlider rangeFrom={1911} rangeTo={2024} />
                     </Box>
-
                     <AutocompleteSelect selectArr={genresArr} selectTitle={"Жанры"}></AutocompleteSelect>
                     <Box sx={{ flexGrow: 1 }} />
                     <Pagination page={page} onChange={setPage} sx={{ height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} size="medium" color="primary" count={35} />

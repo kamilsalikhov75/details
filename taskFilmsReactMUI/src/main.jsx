@@ -2,22 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { Outlet, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import ErrorPage from './utils/error-page.jsx'
 import { FilmCard } from './Components/FilmCard.jsx'
 import { FilmWindow } from './Components/FilmWindows.jsx'
+import { FilmGrid } from './Components/FilmGrid.jsx'
+import { Layout } from './Components/Layout.jsx'
+import { Main } from './Components/Main.jsx'
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path='/'
-      element={<App />}
-      errorElement={<ErrorPage />}
+      element={<Layout/>}
     >
       <Route
-        path='/film/:kinopoiskId'
-        element={<FilmWindow />}
+        path='' element={<Main/>}
+      />
+      <Route
+        path='/film/:id' element={<FilmWindow/>}
       />
     </Route>
   )
