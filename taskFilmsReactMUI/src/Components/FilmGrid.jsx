@@ -10,7 +10,6 @@ export function FilmGrid() {
         return console.log('loading');
     }
     console.log(data)
-    // data.items.forEach((item) => console.log(item))
     return (
         <div style={{ marginLeft: '420px', paddingTop: '20px' }}>
             <Stack direction={"row"} sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>

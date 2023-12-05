@@ -2,7 +2,7 @@ import { AppBar, Box, Button, Icon, IconButton, Stack, Toolbar, Typography } fro
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
-export function Header() {
+export function Header({setModActive}) {
     return (
         <div style={{height: '64px'}}>
             <AppBar sx={{height: '64px'}} variant='elevation' elevation={4} square={true}>
@@ -11,7 +11,7 @@ export function Header() {
                         Фильмы
                     </Typography>
                     <Stack direction={'row'} spacing={0}>
-                        <IconButton sx={{ color: 'white' }}>
+                        <IconButton sx={{ color: 'white' }} onClick={()=> setModActive(true)}>
                             <Icon color='white'>
                                 <AccountCircleIcon />
                             </Icon>

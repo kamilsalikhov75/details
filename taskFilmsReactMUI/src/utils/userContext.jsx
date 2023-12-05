@@ -1,10 +1,8 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 
-export const BearerContext = createContext('');
-
 export const FetchContext = createContext('');
 
-export function FetchProvider({ children, fetchURL }) {
+export function FetchProvider({ children, fetchURL, token }) {
   const [data, setData] = useState(null);
   useEffect(() => {
     const selectedURL = fetchURL();
@@ -13,7 +11,7 @@ export function FetchProvider({ children, fetchURL }) {
       fetch(selectedURL, {
         method: 'GET',
         headers: {
-          'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
+          'X-API-KEY': `${token}`,
           'Content-Type': 'application/json',
         },
       })
@@ -22,7 +20,7 @@ export function FetchProvider({ children, fetchURL }) {
         .catch(err => console.log(err));
     }
 
-  }, [fetchURL]);
+  }, [fetchURL, token]);
   return (
     <FetchContext.Provider value={data}>
       {children}
@@ -34,23 +32,5 @@ export function useFetchData() {
   return useContext(FetchContext);
 }
 
-// export function Fetching({fetchURL}){
-//   const [data, setData] = useState(null);
-//   useEffect(() => {
-//     const selectedURL = fetchURL();
 
-//     if (selectedURL) {
-//       fetch(selectedURL, {
-//         method: 'GET',
-//         headers: {
-//           'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//         .then(result => result.json())
-//         .then(json => setData(json))
-//         .catch(err => console.log(err));
-//     }
-
-//   }, [fetchURL]);
-// }
+//e43bd03c-839c-4000-9f8b-274957f6431d
