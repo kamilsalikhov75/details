@@ -4,6 +4,7 @@ import { SelectUsage } from "./Select";
 import { genresArr, selectArr } from "../utils/library";
 import { RangeSlider } from "./Slider";
 import { AutocompleteSelect } from "./AutocompleteSelect";
+import { fetchURLs } from "../utils/library";
 
 export function Filter({selected, setSelected, page, setPage}) {
     return (
@@ -17,7 +18,7 @@ export function Filter({selected, setSelected, page, setPage}) {
                             <CloseIcon />
                         </IconButton>
                     </Box>
-                    <SelectUsage selectTitle={"Сортировать по:"} selectArr={selectArr} selected={selected}  setSelected={setSelected}/>
+                    <SelectUsage selectTitle={"Сортировать по:"} selectArr={Object.keys(fetchURLs)} selected={selected}  setSelected={setSelected}/>
                     <Box>
                         <Typography variant="body1" textAlign={'left'} marginLeft={'16px'}>
                             Год релиза:

@@ -3,8 +3,9 @@ export function setUrl(selected, fetchURLs, page) {
         if (selected == i){
             let str = fetchURLs[i];
             let link = str.replace(/.$/, page);
+            console.log(link)
             return link
         }
-        
     }
+    
 }

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useState } from "reac
 
 export const FetchContext = createContext('');
 
-export function FetchProvider({ children, fetchURL, token }) {
+export function FetchProvider({ children, fetchURL }) {
   const [data, setData] = useState(null);
   useEffect(() => {
     const selectedURL = fetchURL();
@@ -11,7 +11,7 @@ export function FetchProvider({ children, fetchURL, token }) {
       fetch(selectedURL, {
         method: 'GET',
         headers: {
-          'X-API-KEY': `${token}`,
+          'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
           'Content-Type': 'application/json',
         },
       })
@@ -20,7 +20,7 @@ export function FetchProvider({ children, fetchURL, token }) {
         .catch(err => console.log(err));
     }
 
-  }, [fetchURL, token]);
+  }, [fetchURL]);
   return (
     <FetchContext.Provider value={data}>
       {children}
@@ -33,4 +33,3 @@ export function useFetchData() {
 }
 
 
-//e43bd03c-839c-4000-9f8b-274957f6431d
