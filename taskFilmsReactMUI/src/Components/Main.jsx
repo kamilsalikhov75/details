@@ -13,8 +13,8 @@ export function Main() {
     const [page, setPage] = useState(1);
 
 
-    const token = useTokenData();
-    // const [token, setToken] = useTokenData();
+    // const token = useTokenData();
+    const [token, setToken] = useTokenData();
     console.log(token)
 
     if (token) {

@@ -11,9 +11,9 @@ import { TokenProvider } from './utils/userContext'
 function App() {
   return (
     <div style={{ height: '100vh' }}>
-      <TokenProvider>
-        <Layout />
-      </TokenProvider>
+
+      <Layout />
+
 
     </div>
   )

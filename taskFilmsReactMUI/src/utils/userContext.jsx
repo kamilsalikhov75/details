@@ -37,7 +37,7 @@ export function useFetchData() {
 export const TokenContext = createContext('');
 
 export function TokenProvider({ children }) {
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(localStorage.getItem('token'))
   return(
     <TokenContext.Provider value={[token, setToken]}>
       {children}
