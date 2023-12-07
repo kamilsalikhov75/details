@@ -4,6 +4,10 @@ export default function ErrorPage() {
     const error = useRouteError();
     console.error(error);
   
+    if (error.message == "Cannot read properties of undefined (reading 'map')"){
+      error.message = 'Ошибка при получении данных! Проверьте правильность введенного токена или повторите позже'
+    }
+
     return (
       <div id="error-page">
         <h1>Oops!</h1>

@@ -12,15 +12,13 @@ export function Main() {
     const [selected, setSelected] = useState('');
     const [page, setPage] = useState(1);
 
-
-    // const token = useTokenData();
     const [token, setToken] = useTokenData();
     console.log(token)
 
     if (token) {
         return (
 
-            <div style={{ display: 'flex', width: '100vw', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Filter selected={selected} setSelected={(event) => {
                     setSelected(event.target.value)
                 }} page={page} setPage={(event, value) => {
@@ -33,21 +31,3 @@ export function Main() {
 
 }
 
-
-// export function Main() {
-//     const [selected, setSelected] = useState('');
-//     const [page, setPage] = useState(1);
-
-//     return (
-//         <FetchProvider fetchURL={() => setUrl(selected, fetchURLs, page)}>
-//             <div style={{ display: 'flex', width: '100vw', justifyContent: 'space-between' }}>
-//                 <Filter selected={selected} setSelected={(event) => {
-//                     setSelected(event.target.value)
-//                 }} page={page} setPage={(event, value) => {
-//                     setPage(value);
-//                     }} />
-//                 <FilmGrid />
-//             </div>
-//         </FetchProvider>
-//     )
-// }

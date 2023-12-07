@@ -2,108 +2,57 @@ import { Box, IconButton, Typography } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useFetchData } from "../utils/userContext";
+import { useFetchData, useTokenData } from "../utils/userContext";
 import { useEffect, useState } from "react";
 
 
 export function FilmWindow() {
-
     const navigate = useNavigate();
     const params = useParams();
-    // console.log(params.id);
+    const paramsId = params.id
+    
 
-    const [data, setData] = useState(null);
-    const [stuff, setStuff] = useState(null);
-    const [boxOffice, setBoxOffice] = useState(null);
+    const [filmData, setFilmData] = useState('');
+    const [stuff, setStuff] = useState('');
+    const [boxOffice, setBoxOffice] = useState('');
 
-    useEffect(() => {
-        fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${params.id}`, {
-            method: 'GET',
-            headers: {
-                'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(result => result.json())
-            .then(json => setData(json))
-            .catch(err => console.log(err));
+    const [token, setToken] = useTokenData();
+    
 
-        fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${params.id}`, {
-            method: 'GET',
-            headers: {
-                'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(result => result.json())
-            .then(json => setStuff(json))
-            .catch(err => console.log(err));
+    FilmInfo(token, paramsId, setFilmData)
+    
 
-        fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${params.id}/box_office`, {
-            method: 'GET',
-            headers: {
-                'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(result => result.json())
-            .then(json => setBoxOffice(json))
-            .catch(err => console.log(err));
-    }, []);
-
-    // console.log(data);
-
-    if (!data) {
-        return console.log('loading');
+    if (!filmData){
+        return console.log("LOADING")
     }
-
-    if (!stuff) {
-        return console.log('loadinggggdd');
-    }
-
-    if (!boxOffice) {
-        return console.log('loadinggggdd');
-    }
-    // console.log(stuff)
-
-    console.log(boxOffice);
 
     return (
-        <div style={{ display: 'flex', padding: '20px', width: '100vw' }}>
+        <div style={{ display: 'flex', padding: '20px' }}>
+            <div className="controls" style={{ width: '35px', height: '35px', paddingBottom: '10px' }}>
+                <IconButton onClick={() => { navigate(-1) }}>
+                    <ArrowBackIcon />
+                </IconButton>
+            </div>
             <div>
-                <Box component={'img'} src={data.posterUrl} />
+                <Box sx={{paddingRight: '20px', paddingLeft: '20px'}} component={'img'} src={filmData.posterUrl} />
             </div>
             <div className="details" style={{ paddingLeft: '20px' }}>
-                <div className="title" style={{ display: 'flex', paddingBottom: '10px' }}>
-                    <Typography variant="h3">{data.nameRu}</Typography>
-                    <Typography variant="h4">{data.ratingKinopoisk}</Typography>
+                <div className="title" style={{ display: 'flex', paddingBottom: '10px', alignItems: 'center' }}>
+                    <Typography variant="h3">{filmData.nameRu}</Typography>
+                    <Typography variant="h4">{filmData.ratingKinopoisk}</Typography>
                     <IconButton>
                         <StarIcon />
                     </IconButton>
                 </div>
-
-                <div className="controls" style={{ width: '35px', height: '35px', paddingBottom: '10px' }}>
-                    <IconButton onClick={() =>{navigate(-1)}}>
-                        <ArrowBackIcon />
-                    </IconButton>
-                </div>
-
-                {/* <Cast stuff={stuff} setStuff={setStuff}/> */}
-
-                <div className="cast" >
-                    {stuff.slice(0, 10).map((item, count) => {
-                        if (item.professionKey === "ACTOR")
-                            return <Typography key={count + 1} variant="h6">{item.nameRu}</Typography>
-                    })}
-                </div>
+                <Cast token={token} paramsId={paramsId} setStuff={setStuff} stuff={stuff} />
 
                 <div className="details__info" style={{ height: '450px', paddingTop: '80px', display: 'flex', flexDirection: 'column' }}>
                     <Typography variant="h4" paddingBottom={'50px'}>Детали</Typography>
-                    <div className="details__info-items" style={{}}>
+                    <div className="details__info-items">
                         <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
                             <Typography variant="body1">Страна </Typography>
                             <Box sx={{ display: 'flex', flexDirection: "column" }}>
-                                {data.countries.map((country, key) => (
+                                {filmData.countries.map((country, key) => (
                                     <Typography key={key + 1} variant="body1">{country.country}</Typography>
                                 ))}
                             </Box>
@@ -111,45 +60,43 @@ export function FilmWindow() {
                         </Box>
                         <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
                             <Typography variant="body1">Год </Typography>
-                            <Typography variant="body1">{data.year} </Typography>
+                            <Typography variant="body1">{filmData.year} </Typography>
                         </Box>
-
-                        <Stuff stuff={stuff} stuffItem={"Режиссер"} professionKey={"DIRECTOR"} />
-                        <Stuff stuff={stuff} stuffItem={"Сценарий"} professionKey={"WRITTER"} />
-                        <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-                            <Typography variant="body1">Режиссер </Typography>
-                            {stuff.map((item, count) => {
-                                if (item.professionKey === "DIRECTOR")
-                                    return <Typography key={count + 1} variant="body1">{item.nameRu}</Typography>
-                            })}
-                        </Box>
-                        <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-                            <Typography variant="body1">Сценарий</Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                {stuff.map((item, count) => {
-                                    if (item.professionKey === "WRITER")
-                                        return <Typography key={count + 1} variant="body1">{item.nameRu}</Typography>
-                                })}
-                            </Box>
-                        </Box>
-                        <BoxOffice boxOffice={boxOffice} />
-
-                        <FilmLength data={data} />
+                        
+                        <Stuff stuff={stuff} stuffItem={"Режиссер"} professionKey={"DIRECTOR"}/>
+                        <Stuff stuff={stuff} stuffItem={"Сценарий"} professionKey={"WRITER"}/>
+                        <BoxOffice token={token} paramsId={paramsId} setBoxOffice={setBoxOffice} boxOffice={boxOffice}/>
+                        <FilmLength filmData={filmData}/>
                     </div>
                 </div>
+                
             </div>
         </div>
     )
 }
 
-
-export function Cast({ stuff, setStuff }) {
-
+function FilmInfo(token, paramsId, setFilmData) {
     useEffect(() => {
-        fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${params.id}`, {
+        fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${paramsId}`, {
             method: 'GET',
             headers: {
-                'X-API-KEY': 'e43bd03c-839c-4000-9f8b-274957f6431d',
+                'X-API-KEY': token,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(result => result.json())
+            .then(json => setFilmData(json))
+            .catch(err => console.log(err));
+    }, []);
+}
+
+function Cast({ token, paramsId, setStuff, stuff }) {
+
+    useEffect(() => {
+        fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${paramsId}`, {
+            method: 'GET',
+            headers: {
+                'X-API-KEY': token,
                 'Content-Type': 'application/json',
             },
         })
@@ -159,7 +106,7 @@ export function Cast({ stuff, setStuff }) {
     }, [])
 
     if (!stuff) {
-        return console.log("Loading cast");
+        return console.log("Loading stuff");
     }
 
     return (
@@ -172,42 +119,65 @@ export function Cast({ stuff, setStuff }) {
     )
 }
 
+function Stuff({ stuff, stuffItem, professionKey }) {
+    if (!stuff) {
+        return console.log("Loading stuff");
+    }
 
-export function Stuff({ stuff, stuffItem, professionKey }) {
     return (
         <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-            <Typography variant="body1">{stuffItem}</Typography>
+            <Typography sx={{paddingRight: '20px'}} variant="body1">{stuffItem}</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 {stuff.map((item, count) => {
                     if (item.professionKey === `${professionKey}`)
-                        return <Typography key={count + 1} variant="body1">{item.nameRu}</Typography>
+                        return <Typography sx={{textAlign: 'right'}} key={count + 1} variant="body1">{item.nameRu}</Typography>
                 })}
             </Box>
         </Box>
     )
 }
 
-function BoxOffice({ boxOffice }) {
-    if (Object.keys(boxOffice).includes('items')) {
-        console.log(boxOffice.items.length)
-    } else console.log("FA")
-    // if (Object.keys(boxOffice.items[0]).includes('amount')) {
-    //     return (
-    //         <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-    //             <Typography variant="body1">Бюджет </Typography>
-    //             <Typography variant="body1">{boxOffice.items[0].amount} $</Typography>
-    //         </Box>
-    //     )
-    // } else return null
-}
+function BoxOffice({ token, paramsId, setBoxOffice, boxOffice }) {
 
-function FilmLength({ data }) {
-    if (data.filmLength !== null) {
+    useEffect(()=>{
+        fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${paramsId}/box_office`, {
+            method: 'GET',
+            headers: {
+                'X-API-KEY': token,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(result => result.json())
+            .then(json => setBoxOffice(json))
+            .catch(err => console.log(err));
+    }, []);
+
+    if (!boxOffice){
+        return console.log("Loading box office");
+    }
+
+    if (Object.keys(boxOffice).includes('items') && (boxOffice.items.length > 0)) {
         return (
             <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-                <Typography variant="body1">Время </Typography>
-                <Typography variant="body1">{data.filmLength} минут </Typography>
+                <Typography variant="body1">Бюджет </Typography>
+                <Typography variant="body1">{boxOffice.items[0].amount} $</Typography>
             </Box>
         )
     } else return null
 }
+
+function FilmLength({ filmData }) {
+    if (filmData.filmLength !== null) {
+        return (
+            <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
+                <Typography variant="body1">Время </Typography>
+                <Typography variant="body1">{filmData.filmLength} минут </Typography>
+            </Box>
+        )
+    } else return null
+}
+
+
+
+
+

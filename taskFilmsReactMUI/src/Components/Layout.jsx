@@ -17,25 +17,23 @@ export function Layout() {
 
     console.log(currentMod)
 
-    const setToken = useTokenData();
+    const [token, setToken] = useTokenData();
 
-    
     return (
-        <TokenProvider>
-            <Box>
-                <Header setModActive={setModActive} />
-                {modActive && <ModalWindow active={modActive} setActive={setModActive} setCurrentMod={setCurrentMod} currentMod={"requestToken"}>
-                    {currentMod === 'requestToken' && <RequestToken onCloseClick={setModActive} onClick={() => setCurrentMod("inputToken")} setValue={setEmail} />}
-                    {currentMod === 'inputToken' && <InputToken onCloseClick={setModActive} setValue={setTokenValue} onClick={() => {
-                        localStorage.setItem("token", tokenValue)
-                        setToken(tokenValue);
-                        setModActive(false);
+        <Box>
+            <Header setModActive={setModActive} />
+            {modActive && <ModalWindow active={modActive} setActive={setModActive} setCurrentMod={setCurrentMod} currentMod={"requestToken"}>
+                {currentMod === 'requestToken' && <RequestToken onCloseClick={setModActive} onClick={() => setCurrentMod("inputToken")} setValue={setEmail} />}
+                {currentMod === 'inputToken' && <InputToken onCloseClick={setModActive} setValue={setTokenValue} onClick={() => {
+                    localStorage.setItem("token", tokenValue)
+                    setToken(tokenValue);
+                    setModActive(false);
 
-                    }} />}
-                </ModalWindow>}
-                <Outlet />
-            </Box>
-        </TokenProvider>
+                }} />}
+            </ModalWindow>}
+            <Outlet />
+        </Box>
+
 
     )
 }
