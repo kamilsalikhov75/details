@@ -1,4 +1,5 @@
 import { Box, IconButton, Typography } from "@mui/material";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -10,20 +11,40 @@ export function FilmWindow() {
     const navigate = useNavigate();
     const params = useParams();
     const paramsId = params.id
-    
+
 
     const [filmData, setFilmData] = useState('');
     const [stuff, setStuff] = useState('');
     const [boxOffice, setBoxOffice] = useState('');
 
+    const [favourite, setFavourite] = useState(JSON.parse(localStorage.getItem('favourites')).includes(paramsId));
     const [token, setToken] = useTokenData();
-    
 
     FilmInfo(token, paramsId, setFilmData)
-    
 
-    if (!filmData){
+
+    if (!filmData) {
         return console.log("LOADING")
+    }
+
+    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+    const handleSaveClick = (item) => {
+        if (!favourites.includes(item)) {
+            favourites.push(item);
+        }
+        localStorage.setItem('favourites', JSON.stringify(favourites));
+        setFavourite(true);
+    };
+
+    const handleRemoveClick = (item) => {
+        const index = favourites.indexOf(item);
+        if (index !== -1) {
+            favourites.splice(index, 1);
+        }
+
+        localStorage.setItem('favourites', JSON.stringify(favourites));
+        setFavourite(false);
     }
 
     return (
@@ -34,15 +55,24 @@ export function FilmWindow() {
                 </IconButton>
             </div>
             <div>
-                <Box sx={{paddingRight: '20px', paddingLeft: '20px'}} component={'img'} src={filmData.posterUrl} />
+                <Box sx={{ paddingRight: '20px', paddingLeft: '20px' }} component={'img'} src={filmData.posterUrl} />
             </div>
             <div className="details" style={{ paddingLeft: '20px' }}>
                 <div className="title" style={{ display: 'flex', paddingBottom: '10px', alignItems: 'center' }}>
                     <Typography variant="h3">{filmData.nameRu}</Typography>
                     <Typography variant="h4">{filmData.ratingKinopoisk}</Typography>
-                    <IconButton>
+                    {favourite && <IconButton onClick={() => handleRemoveClick(paramsId)}>
+                        <StarIcon color='primary' />
+                    </IconButton>}
+
+                    {!favourite && <IconButton onClick={() => handleSaveClick(paramsId)}>
                         <StarIcon />
-                    </IconButton>
+                    </IconButton>}
+                    {/* <IconButton onClick={()=> handleSaveClick(paramsId)  }>
+                        {favourites.includes(paramsId) ?
+                         <StarIcon color='primary'/>
+                         : <StarIcon/>}
+                    </IconButton> */}
                 </div>
                 <Cast token={token} paramsId={paramsId} setStuff={setStuff} stuff={stuff} />
 
@@ -62,14 +92,14 @@ export function FilmWindow() {
                             <Typography variant="body1">Год </Typography>
                             <Typography variant="body1">{filmData.year} </Typography>
                         </Box>
-                        
-                        <Stuff stuff={stuff} stuffItem={"Режиссер"} professionKey={"DIRECTOR"}/>
-                        <Stuff stuff={stuff} stuffItem={"Сценарий"} professionKey={"WRITER"}/>
-                        <BoxOffice token={token} paramsId={paramsId} setBoxOffice={setBoxOffice} boxOffice={boxOffice}/>
-                        <FilmLength filmData={filmData}/>
+
+                        <Stuff stuff={stuff} stuffItem={"Режиссер"} professionKey={"DIRECTOR"} />
+                        <Stuff stuff={stuff} stuffItem={"Сценарий"} professionKey={"WRITER"} />
+                        <BoxOffice token={token} paramsId={paramsId} setBoxOffice={setBoxOffice} boxOffice={boxOffice} />
+                        <FilmLength filmData={filmData} />
                     </div>
                 </div>
-                
+
             </div>
         </div>
     )
@@ -126,11 +156,11 @@ function Stuff({ stuff, stuffItem, professionKey }) {
 
     return (
         <Box sx={{ display: 'flex', paddingBottom: '10px', justifyContent: 'space-between' }}>
-            <Typography sx={{paddingRight: '20px'}} variant="body1">{stuffItem}</Typography>
+            <Typography sx={{ paddingRight: '20px' }} variant="body1">{stuffItem}</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 {stuff.map((item, count) => {
                     if (item.professionKey === `${professionKey}`)
-                        return <Typography sx={{textAlign: 'right'}} key={count + 1} variant="body1">{item.nameRu}</Typography>
+                        return <Typography sx={{ textAlign: 'right' }} key={count + 1} variant="body1">{item.nameRu}</Typography>
                 })}
             </Box>
         </Box>
@@ -139,7 +169,7 @@ function Stuff({ stuff, stuffItem, professionKey }) {
 
 function BoxOffice({ token, paramsId, setBoxOffice, boxOffice }) {
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${paramsId}/box_office`, {
             method: 'GET',
             headers: {
@@ -152,7 +182,7 @@ function BoxOffice({ token, paramsId, setBoxOffice, boxOffice }) {
             .catch(err => console.log(err));
     }, []);
 
-    if (!boxOffice){
+    if (!boxOffice) {
         return console.log("Loading box office");
     }
 
@@ -178,6 +208,8 @@ function FilmLength({ filmData }) {
 }
 
 
+function setFavourite(paramsId) {
 
+}
 
 
