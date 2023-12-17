@@ -3,22 +3,27 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useFetchData, useTokenData } from "../utils/userContext";
+// import { useFetchData, useTokenData } from "../utils/userContext";
 import { useEffect, useState } from "react";
+import { removeIdFromLocalStorage, saveIdToLocalStorage } from "../utils/saveToLocalStorage";
+import { useSelector } from "react-redux";
 
 
 export function FilmWindow() {
     const navigate = useNavigate();
     const params = useParams();
     const paramsId = params.id
-
+    // console.log(paramsId, typeof(paramsId))
 
     const [filmData, setFilmData] = useState('');
     const [stuff, setStuff] = useState('');
     const [boxOffice, setBoxOffice] = useState('');
 
-    const [favourite, setFavourite] = useState(JSON.parse(localStorage.getItem('favourites')).includes(paramsId));
-    const [token, setToken] = useTokenData();
+
+    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    const [favourite, setFavourite] = useState(favourites.includes(paramsId));
+
+    const token = useSelector(state => state.token);
 
     FilmInfo(token, paramsId, setFilmData)
 
@@ -27,23 +32,13 @@ export function FilmWindow() {
         return console.log("LOADING")
     }
 
-    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-
     const handleSaveClick = (item) => {
-        if (!favourites.includes(item)) {
-            favourites.push(item);
-        }
-        localStorage.setItem('favourites', JSON.stringify(favourites));
+        saveIdToLocalStorage(item);
         setFavourite(true);
     };
 
     const handleRemoveClick = (item) => {
-        const index = favourites.indexOf(item);
-        if (index !== -1) {
-            favourites.splice(index, 1);
-        }
-
-        localStorage.setItem('favourites', JSON.stringify(favourites));
+        removeIdFromLocalStorage(item);
         setFavourite(false);
     }
 
@@ -68,11 +63,7 @@ export function FilmWindow() {
                     {!favourite && <IconButton onClick={() => handleSaveClick(paramsId)}>
                         <StarIcon />
                     </IconButton>}
-                    {/* <IconButton onClick={()=> handleSaveClick(paramsId)  }>
-                        {favourites.includes(paramsId) ?
-                         <StarIcon color='primary'/>
-                         : <StarIcon/>}
-                    </IconButton> */}
+                    
                 </div>
                 <Cast token={token} paramsId={paramsId} setStuff={setStuff} stuff={stuff} />
 
@@ -205,11 +196,6 @@ function FilmLength({ filmData }) {
             </Box>
         )
     } else return null
-}
-
-
-function setFavourite(paramsId) {
-
 }
 
 

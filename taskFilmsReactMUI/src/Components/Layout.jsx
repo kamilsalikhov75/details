@@ -5,7 +5,8 @@ import { createContext, useContext, useState } from "react";
 import { ModalWindow } from "./Modal";
 import { DialogModal, InputToken, RequestToken, } from "./Login";
 import { Box } from "@mui/material";
-import { TokenProvider, useTokenData } from "../utils/userContext";
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 export function Layout() {
@@ -17,7 +18,13 @@ export function Layout() {
 
     console.log(currentMod)
 
-    const [token, setToken] = useTokenData();
+    const dispatch = useDispatch();
+    const token = useSelector(state => state.token);
+    console.log(token)
+
+    const addToken = (token) => {
+        dispatch({type: "ADD_TOKEN", payload: token});
+    }
 
     return (
         <Box>
@@ -25,8 +32,7 @@ export function Layout() {
             {modActive && <ModalWindow active={modActive} setActive={setModActive} setCurrentMod={setCurrentMod} currentMod={"requestToken"}>
                 {currentMod === 'requestToken' && <RequestToken onCloseClick={setModActive} onClick={() => setCurrentMod("inputToken")} setValue={setEmail} />}
                 {currentMod === 'inputToken' && <InputToken onCloseClick={setModActive} setValue={setTokenValue} onClick={() => {
-                    localStorage.setItem("token", tokenValue)
-                    setToken(tokenValue);
+                    addToken(tokenValue)
                     setModActive(false);
 
                 }} />}
