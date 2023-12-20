@@ -7,13 +7,13 @@ export function AutocompleteSelect({selectArr, selectTitle}){
         multiple
         options={selectArr}
         disableCloseOnSelect
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.genre}
         renderOption={(props, option, {selected}) =>(
             <li {...props}>
                 <Checkbox
                 checked={selected}
                 />
-                {option.name}
+                {option.genre}
             </li>
         )}
         renderInput={(params) => (

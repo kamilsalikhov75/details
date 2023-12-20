@@ -3,6 +3,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 export function Header({setModActive}) {
+    
     return (
         <div style={{height: '64px'}}>
             <AppBar sx={{height: '64px'}} variant='elevation' elevation={4} square={true}>

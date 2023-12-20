@@ -3,35 +3,22 @@ import { FilmGrid } from "./FilmGrid"
 import { FilmWindow } from "./FilmWindows"
 import { Filter } from "./Filter"
 import { fetchURLs, order, selectArr, type } from "../utils/library"
-import { setUrlForFilter } from "../utils/setUrl"
-import { useSelector } from "react-redux"
+import { returnedURL, setUrlForFilter } from "../utils/setUrl"
+import { useDispatch, useSelector } from "react-redux"
+import { addData } from "../actions/actions"
+// import { addFilterItems } from "../actions/actions"
 
 
 export function Main() {
-   
-
-    const [selectedSort, setSelectedSort] = useState(Object.keys(order)[0]);
-    const sortValue = setUrlForFilter(selectedSort, order);
-
-    const [selectedType, setSelectedType] = useState(Object.keys(type)[0])
-    const typeValue = setUrlForFilter(selectedType, type);
-    console.log(typeValue);
-
+    
+    let fetchURL;
     const [page, setPage] = useState(1);
-    const [searchItem, setSearchItem] = useState('');
-
-    const title = searchItem.replace(" ", "_");
-
-    const [data, setData] = useState('');
-    console.log(data)
     const token = useSelector(state => state.token);
 
-
-    const fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=1000&yearTo=3000&keyword=${title}&page=${page}`
-
-    const FilmGridMemorize = useMemo(()=> <FilmGrid data={data} />, [data])
-
-
+    const dispatch = useDispatch()
+    
+    fetchURL = returnedURL(page);
+    
     useEffect(() => {
         fetch(fetchURL, {
             method: 'GET',
@@ -41,31 +28,19 @@ export function Main() {
             },
         })
             .then(result => result.json())
-            .then(json => setData(json))
+            .then(json => dispatch(addData(json)))
             .catch(err => console.log(err));
-        console.log(fetchURL);
+        
     }, [fetchURL])
 
-    if (!data) {
-        return console.log('loading');
-    }
-
-    
-
     if (token) {
-
-        
-
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Filter selectedSort={selectedSort} setSelectedSort={(event) => {
-                    setSelectedSort(event.target.value)
-                }} selectedType={selectedType} setSelectedType={(event) => {
-                    setSelectedType(event.target.value);
-                }} page={page} setSearchItem={setSearchItem} searchItem={searchItem} totalPages={data.totalPages} setPage={(event, value) => {
+                <Filter page={page} setPage={(event, value) => {
                     setPage(value);
                 }} />
-                {FilmGridMemorize}
+                <FilmGrid />
+                
             </div>
         )
     }

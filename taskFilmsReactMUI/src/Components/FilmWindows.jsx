@@ -13,7 +13,6 @@ export function FilmWindow() {
     const navigate = useNavigate();
     const params = useParams();
     const paramsId = params.id
-    // console.log(paramsId, typeof(paramsId))
 
     const [filmData, setFilmData] = useState('');
     const [stuff, setStuff] = useState('');
