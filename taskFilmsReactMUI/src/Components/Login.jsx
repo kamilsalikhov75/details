@@ -3,8 +3,6 @@ import { useState } from "react";
 
 export function DialogModal({dialogTitle, dialogTexFieldLabel, dialogButtonText, onCloseClick, onClick, setValue}) {
 
-    // const [value, setValue] = useState('')
-
     return (
         <Paper elevation={24} sx={{ width: '444px', borderRadius: '4px', backgroundColor: 'white', aspectRatio: '444/183', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Typography variant="h6" sx={{padding: '16px 24px 16px 24px'}}>{dialogTitle}</Typography>

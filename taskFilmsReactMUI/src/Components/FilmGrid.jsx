@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export function FilmGrid() {
 
     
-    const dataSelector = useSelector(state => state.data);
+    const dataSelector = useSelector(state => state.data.data);
 
     const filmItems = useMemo(()=>{
         if (!dataSelector) {

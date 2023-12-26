@@ -6,7 +6,7 @@ import { ModalWindow } from "./Modal";
 import { DialogModal, InputToken, RequestToken, } from "./Login";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addToken } from "../actions/actions";
+import { addToken } from "../store/actions/actions";
 
 
 
@@ -18,7 +18,7 @@ export function Layout() {
     const [tokenValue, setTokenValue] = useState('');
 
     const dispatch = useDispatch();
-    const token = useSelector(state => state.token);
+    const token = useSelector(state => state.data.token);
     
 
 

@@ -3,7 +3,6 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-// import { useFetchData, useTokenData } from "../utils/userContext";
 import { useEffect, useState } from "react";
 import { removeIdFromLocalStorage, saveIdToLocalStorage } from "../utils/saveToLocalStorage";
 import { useSelector } from "react-redux";
@@ -22,7 +21,7 @@ export function FilmWindow() {
     const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
     const [favourite, setFavourite] = useState(favourites.includes(paramsId));
 
-    const token = useSelector(state => state.token);
+    const token = useSelector(state => state.data.token);
 
     FilmInfo(token, paramsId, setFilmData)
 

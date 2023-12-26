@@ -1,44 +1,24 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import { FilmGrid } from "./FilmGrid"
-import { FilmWindow } from "./FilmWindows"
 import { Filter } from "./Filter"
-import { fetchURLs, order, selectArr, type } from "../utils/library"
-import { returnedURL, setUrlForFilter } from "../utils/setUrl"
+import { returnedURL } from "../utils/setUrl"
 import { useDispatch, useSelector } from "react-redux"
-import { addData } from "../actions/actions"
-// import { addFilterItems } from "../actions/actions"
+import { addData } from "../store/actions/actions"
+import { mainFetch } from "../store/asyncActions.js/mainFetch"
 
 
 export function Main() {
     
-    let fetchURL;
-    const [page, setPage] = useState(1);
-    const token = useSelector(state => state.token);
-
+    const token = useSelector(state => state.data.token);
     const dispatch = useDispatch()
     
-    fetchURL = returnedURL(page);
+    dispatch(mainFetch())
     
-    useEffect(() => {
-        fetch(fetchURL, {
-            method: 'GET',
-            headers: {
-                'X-API-KEY': `${token}`,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(result => result.json())
-            .then(json => dispatch(addData(json)))
-            .catch(err => console.log(err));
-        
-    }, [fetchURL])
 
     if (token) {
         return (
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Filter page={page} setPage={(event, value) => {
-                    setPage(value);
-                }} />
+                <Filter/>
                 <FilmGrid />
                 
             </div>

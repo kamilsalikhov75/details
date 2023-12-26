@@ -6,18 +6,19 @@ import { RangeSlider } from "./Slider";
 import { AutocompleteSelect } from "./AutocompleteSelect";
 import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { clearSearchItem, setSearchItem, setSortItem, setTypeItem } from "../actions/actions";
+import { clearSearchItem, setCurrentPage, setSearchItem, setSortItem, setTypeItem } from "../store/actions/actions";
 
-export function Filter({ page, setPage }) {
+export function Filter() {
     
     const dispatch = useDispatch();
-    const selectSortArr = useSelector(state => state.selectedSort)
-    const selectTypeArr = useSelector(state => state.selectedType);
-    const totalPages = useSelector(state => state.data.totalPages);    
+    const selectSortArr = useSelector(state => state.filter.selectedSort)
+    const selectTypeArr = useSelector(state => state.filter.selectedType);
+    const totalPages = useSelector(state => state.data.data.totalPages);    
     
     const [value, setValue] = useState([1911, 2024])
     const [text, setText] = useState('')
-    
+    const [page, setPage] = useState(1);
+
     const [selectedSort, setSelectedSort] = useState(selectSortArr[0]);
     const [selectedType, setSelectedType] = useState(selectTypeArr[0]);
 
@@ -25,6 +26,7 @@ export function Filter({ page, setPage }) {
         dispatch(setSortItem(selectedSort));
         dispatch(setTypeItem(selectedType));
         dispatch(setSearchItem(text));
+        dispatch(setCurrentPage(page))
     });
     
 
@@ -69,7 +71,7 @@ export function Filter({ page, setPage }) {
                 </Box>
                 <AutocompleteSelect selectArr={genresArr} selectTitle={"Жанры"}></AutocompleteSelect>
                 <Box sx={{ flexGrow: 1 }} />
-                <Pagination page={page} onChange={setPage} count={totalPages} sx={{ height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} size="medium" color="primary" />
+                <Pagination page={page} onChange={(event, value) => setPage(value)} count={totalPages} sx={{ height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} size="medium" color="primary" />
             </Paper>
         </div>
     )

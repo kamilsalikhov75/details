@@ -24,24 +24,25 @@ export function setUrlForFilter(selected, fetchURLs) {
 }
 
 
-export function returnedURL(page) {
+export function returnedURL() {
     let fetchURL;
     let sortValue;
     let typeValue;
 
-    const selectedSortSelector = useSelector(state => state.filterItems.currentSelectedSort);
-    const selectedTypeSelector = useSelector(state => state.filterItems.currentSelectedType);
+    const selectedSortSelector = useSelector(state => state.filter.filterItems.currentSelectedSort);
+    const selectedTypeSelector = useSelector(state => state.filter.filterItems.currentSelectedType);
+    const currentPage = useSelector(state => state.filter.filterItems.currentPage);
 
     if ((selectedSortSelector && selectedTypeSelector) !== '') {
         sortValue = setUrlForFilter(selectedSortSelector, order);
         typeValue = setUrlForFilter(selectedTypeSelector, type);
     }
 
-    const titleItem = useSelector(state => state.filterItems.searchItem)
+    const titleItem = useSelector(state => state.filter.filterItems.searchItem)
     
     if ((sortValue && typeValue) !== undefined) {
-        fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=1000&yearTo=3000&keyword=${titleItem}&page=${page}`
+        fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=1000&yearTo=3000&keyword=${titleItem}&page=${currentPage}`
     }
-
     return fetchURL;
+
 }

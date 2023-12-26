@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import { Header } from './Components/Header'
-import { Filter } from './Components/Filter'
 import './App.css'
 import { Container } from '@mui/material'
 import { Main } from './Components/Main'
 import { useContext } from 'react'
 import { Layout } from './Components/Layout'
-// import { TokenProvider } from './utils/userContext'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import { FilmWindow } from './Components/FilmWindows'
 import ErrorPage from './utils/error-page'
-import {createStore} from 'redux'
-import { tokenReducer } from './reducers/tokenReducer'
+
 import {Provider} from 'react-redux'
+import { store } from './store'
 
 
 const router = createBrowserRouter(
@@ -33,7 +29,7 @@ const router = createBrowserRouter(
 )
 
 
-const store = createStore(tokenReducer)
+
 
 function App() {
   return (
@@ -42,13 +38,5 @@ function App() {
     </Provider>
   )
 }
-
-// function App() {
-//   return (
-//     <TokenProvider>
-//       <RouterProvider router={router}/>
-//     </TokenProvider>
-//   )
-// }
 
 export default App
