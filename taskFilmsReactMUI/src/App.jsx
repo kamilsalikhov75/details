@@ -8,7 +8,7 @@ import { FilmWindow } from './Components/FilmWindows'
 import ErrorPage from './utils/error-page'
 
 import {Provider} from 'react-redux'
-import { store } from './store'
+import { newStore } from './store'
 
 
 const router = createBrowserRouter(
@@ -33,7 +33,7 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={newStore}>
       <RouterProvider router={router}/>
     </Provider>
   )

@@ -1,4 +1,4 @@
-import { Box, Container, IconButton, InputAdornment, Pagination, Paper, TextField, Typography } from "@mui/material";
+import { Box, Container, IconButton, InputAdornment, Pagination, Paper, TextField, Typography, stepButtonClasses } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { SelectUsage } from "./Select";
 import { genresArr } from "../utils/library";
@@ -6,16 +6,19 @@ import { RangeSlider } from "./Slider";
 import { AutocompleteSelect } from "./AutocompleteSelect";
 import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { clearSearchItem, setCurrentPage, setSearchItem, setSortItem, setTypeItem } from "../store/actions/actions";
+// import { clearSearchItem, setCurrentPage, setSearchItem, setSortItem, setTypeItem } from "../store/actions/actions";
+import { setSearchItem, clearSearchItem, setSortItem, setTypeItem, setCurrentPage } from "../store/reducers/filterReducer";
 
 export function Filter() {
     
     const dispatch = useDispatch();
+    const filterItems = useSelector(state => state.filter.filterItems);
+    console.log(filterItems);
     const selectSortArr = useSelector(state => state.filter.selectedSort)
     const selectTypeArr = useSelector(state => state.filter.selectedType);
     const totalPages = useSelector(state => state.data.data.totalPages);    
     
-    const [value, setValue] = useState([1911, 2024])
+    const [yearRange, setYearRange] = useState([1911, 2024])
     const [text, setText] = useState('')
     const [page, setPage] = useState(1);
 
@@ -27,9 +30,8 @@ export function Filter() {
         dispatch(setTypeItem(selectedType));
         dispatch(setSearchItem(text));
         dispatch(setCurrentPage(page))
-    });
+    }, [selectedSort, selectedType, text, page]);
     
-
     return (
         <div style={{ marginLeft: '20px', width: '300px', position: 'fixed', zIndex: 1, top: '50%', marginTop: '-200px', height: '100vh' }}>
             <Paper sx={{ width: '300px' }} elevation={1}>
@@ -67,7 +69,7 @@ export function Filter() {
                     <Typography variant="body1" textAlign={'left'} marginLeft={'16px'}>
                         Год релиза:
                     </Typography>
-                    <RangeSlider rangeFrom={1911} rangeTo={2024} value={value} setValue={setValue} />
+                    <RangeSlider rangeFrom={1911} rangeTo={2024} value={yearRange} setValue={setYearRange} />
                 </Box>
                 <AutocompleteSelect selectArr={genresArr} selectTitle={"Жанры"}></AutocompleteSelect>
                 <Box sx={{ flexGrow: 1 }} />

@@ -1,26 +1,24 @@
 import { Box, Card, CardActionArea, CardContent, CardMedia, Container, IconButton, Paper, Typography } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { removeIdFromLocalStorage, saveIdToLocalStorage } from "../utils/saveToLocalStorage";
+import useLocalStorage from "../utils/saveToLocalStorage";
 
 
-export function FilmCard({ name, poster, year, id }) {
+export function FilmCard({ name, poster, year, id, favourites, setFavourites }) {
     const paramsId = String(id);
-    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    const isFavourite = favourites.includes(paramsId)
 
-    const [favourite, setFavourite] = useState(favourites.includes(paramsId));    
-    
-    const handleSaveClick = (item) => {
-        saveIdToLocalStorage(item);
-        setFavourite(true);
-    };
-
-    const handleRemoveClick = (item) => {
-        removeIdFromLocalStorage(item);
-        setFavourite(false);
+    const toggleFavourite = (item) => {
+        if(favourites.includes(item)){
+            setFavourites(favourites.filter((newItem) => newItem !== item))
+            return
+        }
+        setFavourites([...favourites, item])
+        
     }
 
+    
     return (
         <div style={{ paddingRight: '20px', paddingBottom: '20px' }}>
             <Card sx={{ width: '296px' }}>
@@ -35,15 +33,13 @@ export function FilmCard({ name, poster, year, id }) {
                             <Typography variant="h5">{name}</Typography>
                             <Typography variant="body2">{year}</Typography>
                         </Box>
-                        {favourite && <IconButton sx = {{ width: '32px', height: '32px' }} onClick={() => {
-                            handleRemoveClick(paramsId)
-                            }}>
-                            <StarIcon color='primary' />
-                        </IconButton>}
+                        <IconButton sx={{ width: '32px', height: '32px' }} onClick={() => {
+                            toggleFavourite(paramsId)
+                            // toggle(paramsId, setFavourite)
+                        }}>
+                            <StarIcon color={isFavourite ? 'primary' : ''} />
+                        </IconButton>
 
-                        {!favourite && <IconButton sx = {{ width: '32px', height: '32px' }} onClick={() => handleSaveClick(paramsId)}>
-                            <StarIcon />
-                        </IconButton>}
                     </CardContent>
 
                 </Paper>

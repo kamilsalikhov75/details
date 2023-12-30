@@ -4,7 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { removeIdFromLocalStorage, saveIdToLocalStorage } from "../utils/saveToLocalStorage";
+
 import { useSelector } from "react-redux";
 
 
