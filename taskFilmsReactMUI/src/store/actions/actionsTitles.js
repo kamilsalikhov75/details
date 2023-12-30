@@ -1,0 +1,8 @@
+export const ADD_TOKEN = 'ADD_TOKEN'
+export const ADD_DATA = 'ADD_DATA'
+export const SET_SEARCH_ITEM = 'SET_SEARCH_ITEM'
+export const CLEAR_SEARCH_ITEM = 'CLEAR_SEARCH_ITEM'
+export const SET_SORT_ITEM = 'SET_SORT_ITEM'
+export const SET_TYPE_ITEM = 'SET_TYPE_ITEM'
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+export const SET_FAVOURITE = 'SET_FAVOURITE'
