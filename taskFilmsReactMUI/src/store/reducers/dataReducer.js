@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ADD_DATA, ADD_TOKEN } from "../actions/actionsTitles";
+
 import { mainFetch } from "../asyncActions.js/mainFetch";
 
 const initialState = {
@@ -7,18 +7,6 @@ const initialState = {
     data: '',
     
 };
-
-// export const dataReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//         case ADD_TOKEN:
-//             return { ...state, token: localStorage.setItem("token", action.payload) }
-
-//         case ADD_DATA:
-//             return { ...state, data: action.payload }
-//         default:
-//             return state;
-//     }
-// }
 
 
 export const dataSlice = createSlice({
@@ -36,10 +24,11 @@ export const dataSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(mainFetch.fulfilled, (state, action) =>{
+                console.log("Successfully");
                 state.data = action.payload
             })
             .addCase(mainFetch.rejected, () => {
-                console.log('false')
+                console.log('Rejected')
             })
     }
 })

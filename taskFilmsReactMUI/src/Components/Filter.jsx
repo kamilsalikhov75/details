@@ -6,14 +6,11 @@ import { RangeSlider } from "./Slider";
 import { AutocompleteSelect } from "./AutocompleteSelect";
 import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-// import { clearSearchItem, setCurrentPage, setSearchItem, setSortItem, setTypeItem } from "../store/actions/actions";
-import { setSearchItem, clearSearchItem, setSortItem, setTypeItem, setCurrentPage } from "../store/reducers/filterReducer";
+import { setSearchItem, clearSearchItem, setSortItem, setTypeItem, setCurrentPage, setCurrentYearRange, setCurrentGenres } from "../store/reducers/filterReducer";
 
 export function Filter() {
     
     const dispatch = useDispatch();
-    const filterItems = useSelector(state => state.filter.filterItems);
-    console.log(filterItems);
     const selectSortArr = useSelector(state => state.filter.selectedSort)
     const selectTypeArr = useSelector(state => state.filter.selectedType);
     const totalPages = useSelector(state => state.data.data.totalPages);    
@@ -21,7 +18,8 @@ export function Filter() {
     const [yearRange, setYearRange] = useState([1911, 2024])
     const [text, setText] = useState('')
     const [page, setPage] = useState(1);
-
+    const [genresValues, setGenresValue] = useState([]);
+    
     const [selectedSort, setSelectedSort] = useState(selectSortArr[0]);
     const [selectedType, setSelectedType] = useState(selectTypeArr[0]);
 
@@ -29,8 +27,10 @@ export function Filter() {
         dispatch(setSortItem(selectedSort));
         dispatch(setTypeItem(selectedType));
         dispatch(setSearchItem(text));
-        dispatch(setCurrentPage(page))
-    }, [selectedSort, selectedType, text, page]);
+        dispatch(setCurrentPage(page));
+        dispatch(setCurrentYearRange(yearRange));
+        dispatch(setCurrentGenres(genresValues));
+    }, [selectedSort, selectedType, text, page, yearRange, genresValues]);
     
     return (
         <div style={{ marginLeft: '20px', width: '300px', position: 'fixed', zIndex: 1, top: '50%', marginTop: '-200px', height: '100vh' }}>
@@ -71,7 +71,7 @@ export function Filter() {
                     </Typography>
                     <RangeSlider rangeFrom={1911} rangeTo={2024} value={yearRange} setValue={setYearRange} />
                 </Box>
-                <AutocompleteSelect selectArr={genresArr} selectTitle={"Жанры"}></AutocompleteSelect>
+                <AutocompleteSelect selectArr={genresArr} selectTitle={"Жанры"} setValue={setGenresValue}></AutocompleteSelect>
                 <Box sx={{ flexGrow: 1 }} />
                 <Pagination page={page} onChange={(event, value) => setPage(value)} count={totalPages} sx={{ height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} size="medium" color="primary" />
             </Paper>

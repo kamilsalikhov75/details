@@ -1,4 +1,4 @@
-import { CLEAR_SEARCH_ITEM, SET_CURRENT_PAGE, SET_SEARCH_ITEM, SET_SORT_ITEM, SET_TYPE_ITEM } from "../actions/actionsTitles";
+
 import { order, type } from "../../utils/library";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -10,57 +10,11 @@ const initialState = {
         currentSelectedSort: '',
         currentSelectedType: '',
         currentPage: '',
+        currentYearRange: null,
+        currentGenres: ''
     }
 };
 
-// export const filterReducer = (state = filterState, action) => {
-//     switch (action.type) {
-//         case SET_SEARCH_ITEM:
-//             return {
-//                 ...state,
-//                 filterItems: {
-//                     ...state.filterItems,
-//                     searchItem: action.payload,
-//                 }
-//             }
-//         case CLEAR_SEARCH_ITEM: {
-//             return {
-//                 ...state,
-//                 filterItems: {
-//                     ...state.filterItems,
-//                     searchItem: ''
-//                 }
-//             }
-//         }
-//         case SET_SORT_ITEM:
-//             return {
-//                 ...state,
-//                 filterItems: {
-//                     ...state.filterItems,
-//                     currentSelectedSort: action.payload
-//                 }
-//             }
-
-//         case SET_TYPE_ITEM:
-//             return {
-//                 ...state,
-//                 filterItems: {
-//                     ...state.filterItems,
-//                     currentSelectedType: action.payload
-//                 }
-//             }
-//         case SET_CURRENT_PAGE:
-//             return {
-//                 ...state,
-//                 filterItems: {
-//                     ...state.filterItems,
-//                     currentPage: action.payload
-//                 }
-//             }
-//         default:
-//             return state;
-//     }
-// }
 
 export const filterSlice = createSlice({
     name: 'filter',
@@ -80,9 +34,15 @@ export const filterSlice = createSlice({
         },
         setCurrentPage: (state, action) =>{
             state.filterItems.currentPage = action.payload;
+        },
+        setCurrentYearRange: (state, action) => {
+            state.filterItems.currentYearRange = action.payload
+        },
+        setCurrentGenres: (state, action) => {
+            state.filterItems.currentGenres = action.payload
         }
     }
 })
 
-export const {setSearchItem, clearSearchItem, setSortItem, setTypeItem, setCurrentPage} = filterSlice.actions;
+export const {setSearchItem, clearSearchItem, setSortItem, setTypeItem, setCurrentPage, setCurrentYearRange, setCurrentGenres} = filterSlice.actions;
 export default filterSlice.reducer

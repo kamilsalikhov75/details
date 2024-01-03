@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
+import useLocalStorage, { toggleFavourite } from "../utils/saveToLocalStorage";
 
 
 export function FilmWindow() {
@@ -18,27 +19,18 @@ export function FilmWindow() {
     const [boxOffice, setBoxOffice] = useState('');
 
 
-    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-    const [favourite, setFavourite] = useState(favourites.includes(paramsId));
-
+    const [favourites, setFavourites] = useLocalStorage('favourite', []);
+    const isFavourite = favourites.includes(paramsId)
+    
     const token = useSelector(state => state.data.token);
 
     FilmInfo(token, paramsId, setFilmData)
-
 
     if (!filmData) {
         return console.log("LOADING")
     }
 
-    const handleSaveClick = (item) => {
-        saveIdToLocalStorage(item);
-        setFavourite(true);
-    };
 
-    const handleRemoveClick = (item) => {
-        removeIdFromLocalStorage(item);
-        setFavourite(false);
-    }
 
     return (
         <div style={{ display: 'flex', padding: '20px' }}>
@@ -54,14 +46,12 @@ export function FilmWindow() {
                 <div className="title" style={{ display: 'flex', paddingBottom: '10px', alignItems: 'center' }}>
                     <Typography variant="h3">{filmData.nameRu}</Typography>
                     <Typography variant="h4">{filmData.ratingKinopoisk}</Typography>
-                    {favourite && <IconButton onClick={() => handleRemoveClick(paramsId)}>
-                        <StarIcon color='primary' />
-                    </IconButton>}
+                    <IconButton sx={{ width: '32px', height: '32px' }} onClick={() => {
+                        toggleFavourite(paramsId, favourites, setFavourites)
+                    }}>
+                        <StarIcon color={isFavourite ? 'primary' : ''} />
+                    </IconButton>
 
-                    {!favourite && <IconButton onClick={() => handleSaveClick(paramsId)}>
-                        <StarIcon />
-                    </IconButton>}
-                    
                 </div>
                 <Cast token={token} paramsId={paramsId} setStuff={setStuff} stuff={stuff} />
 

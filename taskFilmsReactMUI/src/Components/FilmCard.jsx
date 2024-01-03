@@ -2,22 +2,12 @@ import { Box, Card, CardActionArea, CardContent, CardMedia, Container, IconButto
 import StarIcon from '@mui/icons-material/Star';
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import useLocalStorage from "../utils/saveToLocalStorage";
+import useLocalStorage, { toggleFavourite } from "../utils/saveToLocalStorage";
 
 
 export function FilmCard({ name, poster, year, id, favourites, setFavourites }) {
     const paramsId = String(id);
     const isFavourite = favourites.includes(paramsId)
-
-    const toggleFavourite = (item) => {
-        if(favourites.includes(item)){
-            setFavourites(favourites.filter((newItem) => newItem !== item))
-            return
-        }
-        setFavourites([...favourites, item])
-        
-    }
-
     
     return (
         <div style={{ paddingRight: '20px', paddingBottom: '20px' }}>
@@ -34,8 +24,7 @@ export function FilmCard({ name, poster, year, id, favourites, setFavourites }) 
                             <Typography variant="body2">{year}</Typography>
                         </Box>
                         <IconButton sx={{ width: '32px', height: '32px' }} onClick={() => {
-                            toggleFavourite(paramsId)
-                            // toggle(paramsId, setFavourite)
+                            toggleFavourite(paramsId, favourites, setFavourites)
                         }}>
                             <StarIcon color={isFavourite ? 'primary' : ''} />
                         </IconButton>

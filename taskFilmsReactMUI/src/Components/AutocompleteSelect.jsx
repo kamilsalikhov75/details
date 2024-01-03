@@ -1,7 +1,9 @@
 import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { useState } from "react";
 
 
-export function AutocompleteSelect({selectArr, selectTitle}){
+export function AutocompleteSelect({selectArr, selectTitle, setValue}){
+
     return(
         <Autocomplete sx={{minHeight: '79px', margin: '16px'}}
         multiple
@@ -18,7 +20,7 @@ export function AutocompleteSelect({selectArr, selectTitle}){
         )}
         renderInput={(params) => (
             <TextField {...params} label={selectTitle} color="primary"/>
-        )}
+        )} onChange={(event, newValue) => setValue(newValue)}
         />
     )
 }

@@ -1,37 +1,14 @@
 import { useState, useEffect } from "react";
 
-// export function saveIdToLocalStorage(id) {
-//   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-//   if (!favourites.includes(id)) {
-//     favourites.push(id);
-//   }
-//   localStorage.setItem('favourites', JSON.stringify(favourites));
-// }
 
-// export function removeIdFromLocalStorage(id) {
-//   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-//   const index = favourites.indexOf(id);
-//   if (index !== -1) {
-//     favourites.splice(index, 1);
-//   }
-//   localStorage.setItem('favourites', JSON.stringify(favourites));
-// }
-
-export function toggle(id, setFavourite) {
-  const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-  if (!favourites.includes(id)) {
-    favourites.push(id);
-    setFavourite(true)
-  } else {
-    const index = favourites.indexOf(id);
-    if (index !== -1) {
-      favourites.splice(index, 1);
-      setFavourite(false)
-    }
+export const toggleFavourite = (item, favourites, setFavourites) => {
+  if(favourites.includes(item)){
+      setFavourites(favourites.filter((newItem) => newItem !== item))
+      return
   }
-  localStorage.setItem('favourites', JSON.stringify(favourites));
+  setFavourites([...favourites, item])
+  
 }
-
 
 const useLocalStorage = (key, defaultValue) => {
   const [value, setValue] = useState(() => {

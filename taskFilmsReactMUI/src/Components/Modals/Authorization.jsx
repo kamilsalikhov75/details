@@ -11,7 +11,7 @@ export function Authorization({modActive, setModActive, currentMod, setCurrentMo
             {modActive && <ModalWindow active={modActive} setActive={setModActive} setCurrentMod={setCurrentMod} currentMod={"requestToken"}>
                 {currentMod === 'requestToken' && <RequestToken onCloseClick={setModActive} onClick={() => setCurrentMod("inputToken")} setValue={setEmail} />}
                 {currentMod === 'inputToken' && <InputToken onCloseClick={setModActive} setValue={setTokenValue} onClick={() => {
-                    dispatch(addToken())
+                    dispatch(addToken(tokenValue))
                     setModActive(false);
 
                 }} />}

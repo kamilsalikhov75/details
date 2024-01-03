@@ -1,6 +1,3 @@
-import { useSelector } from "react-redux";
-import { order, type } from "./library";
-
 export function setUrlForCollection(selected, fetchURLs, page) {
     for (let i in fetchURLs) {
         if (selected == i) {
@@ -24,24 +21,16 @@ export function setUrlForFilter(selected, fetchURLs) {
 }
 
 
-export function returnedURL() {
-    let fetchURL;
-    let sortValue;
-    let typeValue;
-
-    const selectedSortSelector = useSelector(state => state.filter.filterItems.currentSelectedSort);
-    const selectedTypeSelector = useSelector(state => state.filter.filterItems.currentSelectedType);
-    const currentPage = useSelector(state => state.filter.filterItems.currentPage);
-
-    if ((selectedSortSelector && selectedTypeSelector) !== '') {
-        sortValue = setUrlForFilter(selectedSortSelector, order);
-        typeValue = setUrlForFilter(selectedTypeSelector, type);
+export function returnedURL(sortValue, typeValue, titleItem, currentPage, yearFrom, yearTo, genresString) {
+    let fetchURL, titleTrim;
+    console.log(genresString)
+    titleTrim = titleItem.replaceAll(' ', '-');
+    console.log(titleTrim);
+    if ((sortValue && typeValue && genresString) !== undefined){
+        fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?genres=${genresString[0]}&order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=${yearFrom}&yearTo=${yearTo}&keyword=${titleTrim}&page=${currentPage}`
     }
-
-    const titleItem = useSelector(state => state.filter.filterItems.searchItem)
-    
-    if ((sortValue && typeValue) !== undefined) {
-        fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=1000&yearTo=3000&keyword=${titleItem}&page=${currentPage}`
+    if (((sortValue && typeValue) !== undefined) && genresString === undefined){
+        fetchURL = `https://kinopoiskapiunofficial.tech/api/v2.2/films?order=${sortValue}&type=${typeValue}&ratingFrom=0&ratingTo=10&yearFrom=${yearFrom}&yearTo=${yearTo}&keyword=${titleItem}&page=${currentPage}`
     }
     return fetchURL;
 
